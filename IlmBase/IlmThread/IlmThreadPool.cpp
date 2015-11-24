@@ -422,11 +422,6 @@ ThreadPool::setNumThreads (int count)
 void
 ThreadPool::addTask (Task* task) 
 {
-    //
-    // Lock the threads, needed to access numThreads
-    //
-
-    Lock lock (_data->threadMutex);
 
     if (_data->numThreads == 0)
     {
@@ -435,6 +430,7 @@ ThreadPool::addTask (Task* task)
     }
     else
     {
+		Lock lock (_data->threadMutex);
 	//
         // Get exclusive access to the tasks queue
 	//
